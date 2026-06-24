@@ -102,7 +102,9 @@ $statuses = [
             </tr>
         </thead>
         <tbody>
-            <?php if (!empty($employees)) : foreach ($employees as $employee):
+            <?php if (!empty($processed_employees)) : foreach ($processed_employees as $data):
+                $employee = $data['post'];
+                $photo_data = $data['photo_data'];
                 $full_name = get_field('full_name', $employee->ID);
                 $position = get_field('position', $employee->ID);
                 $department = get_field('department', $employee->ID);
@@ -111,8 +113,8 @@ $statuses = [
             ?>
                 <tr>
                     <td>
-                        <?php if (has_post_thumbnail($employee->ID)): ?>
-                            <?php echo get_the_post_thumbnail($employee->ID, [40, 40], ['class' => 'em-photo']); ?>
+                        <?php if (!empty($photo_data)): ?>
+                            <img src="<?php echo $photo_data; ?>" alt="" class="em-photo" width="40" height="40">
                         <?php else: ?>
                             <div class="em-photo-placeholder">Нет фото</div>
                         <?php endif; ?>

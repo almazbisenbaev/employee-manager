@@ -83,6 +83,63 @@ class EM_PDF_Generator {
     }
 
     /**
+     * Helper: Convert image attachment to base64-encoded data URI
+     */
+    private static function get_image_data_uri($thumbnail_id) {
+        if (!$thumbnail_id) {
+            return '';
+        }
+
+        // Try 1: Use get_attached_file to get local file path
+        $attached_file = get_attached_file($thumbnail_id);
+        if ($attached_file && file_exists($attached_file) && is_readable($attached_file)) {
+            $file_data = file_get_contents($attached_file);
+            if ($file_data !== false) {
+                // Get correct MIME type
+                $file_info = getimagesize($attached_file);
+                if ($file_info && !empty($file_info['mime'])) {
+                    return 'data:' . $file_info['mime'] . ';base64,' . base64_encode($file_data);
+                }
+                // Fallback MIME type
+                $ext = strtolower(pathinfo($attached_file, PATHINFO_EXTENSION));
+                $mime_types = array(
+                    'jpg' => 'image/jpeg',
+                    'jpeg' => 'image/jpeg',
+                    'png' => 'image/png',
+                    'gif' => 'image/gif',
+                    'webp' => 'image/webp',
+                );
+                $mime = isset($mime_types[$ext]) ? $mime_types[$ext] : 'image/jpeg';
+                return 'data:' . $mime . ';base64,' . base64_encode($file_data);
+            }
+        }
+
+        // Try 2: Use wp_get_attachment_url and allow_url_fopen
+        $photo_url = wp_get_attachment_url($thumbnail_id);
+        if ($photo_url && ini_get('allow_url_fopen')) {
+            $file_data = file_get_contents($photo_url);
+            if ($file_data !== false) {
+                $mime = get_post_mime_type($thumbnail_id);
+                if (!$mime) {
+                    $ext = strtolower(pathinfo(parse_url($photo_url, PHP_URL_PATH), PATHINFO_EXTENSION));
+                    $mime_types = array(
+                        'jpg' => 'image/jpeg',
+                        'jpeg' => 'image/jpeg',
+                        'png' => 'image/png',
+                        'gif' => 'image/gif',
+                        'webp' => 'image/webp',
+                    );
+                    $mime = isset($mime_types[$ext]) ? $mime_types[$ext] : 'image/jpeg';
+                }
+                return 'data:' . $mime . ';base64,' . base64_encode($file_data);
+            }
+        }
+
+        // If everything fails
+        return '';
+    }
+
+    /**
      * Рендерим PDF списка
      */
     public static function render_list_pdf($employees, $download = true) {
@@ -93,6 +150,17 @@ class EM_PDF_Generator {
         $options->set('defaultFont', 'DejaVu Sans');
         $options->set('fontDir', EM_PLUGIN_DIR . 'vendor/dompdf/dompdf/lib/fonts/');
         $options->set('fontCache', EM_PLUGIN_DIR . 'vendor/dompdf/dompdf/lib/fonts/');
+
+        // Process employees to include photo data URIs
+        $processed_employees = array();
+        foreach ($employees as $employee) {
+            $thumbnail_id = get_post_thumbnail_id($employee->ID);
+            $processed_employees[] = array(
+                'post' => $employee,
+                'photo_data' => $thumbnail_id ? self::get_image_data_uri($thumbnail_id) : '',
+                'thumbnail_id' => $thumbnail_id,
+            );
+        }
 
         $dompdf = new \Dompdf\Dompdf($options);
 
@@ -157,6 +225,10 @@ class EM_PDF_Generator {
         $options->set('defaultFont', 'DejaVu Sans');
         $options->set('fontDir', EM_PLUGIN_DIR . 'vendor/dompdf/dompdf/lib/fonts/');
         $options->set('fontCache', EM_PLUGIN_DIR . 'vendor/dompdf/dompdf/lib/fonts/');
+
+        // Process employee photo to base64 data URI
+        $thumbnail_id = get_post_thumbnail_id($employee->ID);
+        $photo_data = $thumbnail_id ? self::get_image_data_uri($thumbnail_id) : '';
 
         $dompdf = new \Dompdf\Dompdf($options);
 

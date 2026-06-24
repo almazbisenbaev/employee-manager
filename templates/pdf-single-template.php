@@ -123,8 +123,8 @@ $statuses = [
     <div class="em-employee-card">
         <div class="em-employee-header">
             <div class="em-photo-wrapper">
-                <?php if (has_post_thumbnail($employee->ID)): ?>
-                    <?php echo get_the_post_thumbnail($employee->ID, [140, 140], ['class' => 'em-photo']); ?>
+                <?php if (!empty($photo_data)): ?>
+                    <img src="<?php echo $photo_data; ?>" alt="" class="em-photo" width="140" height="140">
                 <?php else: ?>
                     <div class="em-photo-placeholder">Нет фото</div>
                 <?php endif; ?>
