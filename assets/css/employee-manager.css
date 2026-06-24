@@ -1,0 +1,454 @@
+.em-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    color: #111827;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.em-container * {
+    box-sizing: border-box;
+}
+
+.em-button svg {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+}
+
+.em-actions .em-button svg {
+    margin-right: 0;
+}
+
+.em-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.em-container h1 {
+    margin-bottom: 36px;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: #111827;
+}
+
+.em-filter-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 32px;
+    padding: 24px;
+    background: linear-gradient(135deg, #f9fafb 0%, #ffffff 100%);
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+}
+
+.em-filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.em-filter-group label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #4b5563;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.em-filter-group select,
+.em-filter-group input[type="text"] {
+    width: 100%;
+    padding: 10px 14px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #111827;
+    background-color: #ffffff;
+    border: 1.5px solid #d1d5db;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    min-height: 42px;
+    height: 42px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.em-filter-input-wrapper {
+    position: relative;
+}
+.em-filter-group select {
+    padding-right: 40px;
+}
+.em-filter-input-wrapper::after {
+    content: '';
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid #6b7280;
+    pointer-events: none;
+}
+
+.em-filter-group select:hover,
+.em-filter-group input[type="text"]:hover {
+    border-color: #9ca3af;
+    background-color: #f9fafb;
+}
+
+.em-filter-group select:focus,
+.em-filter-group input[type="text"]:focus {
+    outline: none;
+    border-color: #111827;
+    box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.1);
+    background-color: #ffffff;
+}
+
+.em-filter-buttons {
+    display: flex;
+    gap: 12px;
+    align-items: flex-end;
+    margin-top: auto;
+}
+
+.em-filter-buttons .em-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.5;
+    text-decoration: none;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.em-filter-buttons .em-button:active {
+    transform: translateY(1px);
+}
+
+.em-filter-buttons .em-button-primary {
+    background-color: #111827;
+    color: #ffffff;
+}
+
+.em-filter-buttons .em-button-primary:hover {
+    background-color: #374151;
+    transform: translateY(-1px);
+}
+
+.em-filter-buttons .em-button {
+    background-color: #f3f4f6;
+    color: #111827;
+    border-color: #e5e7eb;
+}
+
+.em-filter-buttons .em-button:hover {
+    background-color: #e5e7eb;
+    border-color: #d1d5db;
+    transform: translateY(-1px);
+}
+
+.em-pdf-buttons {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 28px;
+}
+
+.em-pdf-buttons .em-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.5;
+    text-decoration: none;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.em-pdf-buttons .em-button:active {
+    transform: translateY(1px);
+}
+
+.em-pdf-buttons .em-button-primary {
+    background-color: #111827;
+    color: #ffffff;
+}
+
+.em-pdf-buttons .em-button-primary:hover {
+    background-color: #374151;
+    transform: translateY(-1px);
+}
+
+.em-pdf-buttons .em-button {
+    background-color: #f3f4f6;
+    color: #111827;
+    border-color: #e5e7eb;
+}
+
+.em-pdf-buttons .em-button:hover {
+    background-color: #e5e7eb;
+    border-color: #d1d5db;
+    transform: translateY(-1px);
+}
+
+.em-table-wrapper {
+    overflow-x: auto;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+}
+
+.em-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    font-size: 14px;
+}
+
+.em-table th,
+.em-table td {
+    padding: 14px 16px;
+    text-align: left;
+}
+
+.em-table th {
+    background-color: #f9fafb;
+    font-weight: 700;
+    font-size: 12px;
+    color: #4b5563;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.em-table td {
+    border-bottom: 1px solid #f3f4f6;
+    color: #374151;
+}
+
+.em-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.em-table tbody tr:hover {
+    background-color: #f9fafb;
+}
+
+.em-photo {
+    width: 44px;
+    height: 44px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.em-photo-placeholder {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f3f4f6;
+    border-radius: 10px;
+    color: #6b7280;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.em-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.em-actions .em-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.5;
+    text-decoration: none;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 1.5px solid transparent;
+    transition: all 0.2s ease;
+    background-color: #f3f4f6;
+    color: #111827;
+    border-color: #e5e7eb;
+}
+
+.em-actions .em-button:hover {
+    background-color: #e5e7eb;
+    border-color: #d1d5db;
+    transform: translateY(-1px);
+}
+
+.em-actions .em-button:active {
+    transform: translateY(1px);
+}
+
+.em-pdf-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    z-index: 99999;
+    padding: 24px;
+    box-sizing: border-box;
+    animation: em-fadeIn 0.2s ease;
+}
+
+.em-pdf-modal.em-active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes em-fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.em-pdf-modal-content {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 1100px;
+    height: 90vh;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    animation: em-slideUp 0.3s ease;
+    font-size: 14px;
+}
+
+@keyframes em-slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.em-pdf-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px;
+    border-bottom: 1px solid #e5e7eb;
+    background-color: #f9fafb;
+}
+
+.em-pdf-modal-header h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #111827;
+    letter-spacing: -0.01em;
+}
+
+.em-pdf-modal-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.em-pdf-modal-actions .em-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.5;
+    text-decoration: none;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+    background-color: #f3f4f6;
+    color: #111827;
+    border-color: #e5e7eb;
+}
+
+.em-pdf-modal-actions .em-button:hover {
+    background-color: #e5e7eb;
+    border-color: #d1d5db;
+    transform: translateY(-1px);
+}
+
+.em-pdf-modal-actions .em-button:active {
+    transform: translateY(1px);
+}
+
+.em-pdf-modal-actions .em-button-primary {
+    background-color: #111827;
+    color: #ffffff;
+    border-color: #111827;
+}
+
+.em-pdf-modal-actions .em-button-primary:hover {
+    background-color: #374151;
+    border-color: #374151;
+}
+
+.em-pdf-modal-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    color: #6b7280;
+    padding: 6px;
+    font-weight: 300;
+    transition: all 0.2s ease;
+    border-radius: 6px;
+}
+
+.em-pdf-modal-close:hover {
+    color: #111827;
+    background-color: #e5e7eb;
+    transform: rotate(90deg);
+}
+
+.em-pdf-modal-body {
+    flex: 1;
+    overflow: hidden;
+}
+
+.em-pdf-modal-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
