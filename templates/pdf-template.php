@@ -70,6 +70,7 @@ $statuses = [
             width: 40px;
             height: 40px;
             object-fit: cover;
+            display: block;
             border-radius: 8px;
         }
         .em-photo-placeholder {

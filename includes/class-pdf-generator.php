@@ -90,17 +90,47 @@ class EM_PDF_Generator {
             return '';
         }
 
-        // Try 1: Use get_attached_file to get local file path
+        $thumbnail_data = wp_get_attachment_image_src($thumbnail_id, 'thumbnail');
+        if ($thumbnail_data && !empty($thumbnail_data[0])) {
+            $thumbnail_file = get_attached_file($thumbnail_id);
+            if ($thumbnail_file) {
+                $upload_dir = wp_upload_dir();
+                $thumbnail_meta = wp_get_attachment_metadata($thumbnail_id);
+                if ($thumbnail_meta && isset($thumbnail_meta['sizes']) && isset($thumbnail_meta['sizes']['thumbnail'])) {
+                    $thumbnail_size_info = $thumbnail_meta['sizes']['thumbnail'];
+                    $thumbnail_file = str_replace(basename($thumbnail_file), $thumbnail_size_info['file'], $thumbnail_file);
+                }
+            }
+            
+            if ($thumbnail_file && file_exists($thumbnail_file) && is_readable($thumbnail_file)) {
+                $file_data = file_get_contents($thumbnail_file);
+                if ($file_data !== false) {
+                    $file_info = getimagesize($thumbnail_file);
+                    if ($file_info && !empty($file_info['mime'])) {
+                        return 'data:' . $file_info['mime'] . ';base64,' . base64_encode($file_data);
+                    }
+                    $ext = strtolower(pathinfo($thumbnail_file, PATHINFO_EXTENSION));
+                    $mime_types = array(
+                        'jpg' => 'image/jpeg',
+                        'jpeg' => 'image/jpeg',
+                        'png' => 'image/png',
+                        'gif' => 'image/gif',
+                        'webp' => 'image/webp',
+                    );
+                    $mime = isset($mime_types[$ext]) ? $mime_types[$ext] : 'image/jpeg';
+                    return 'data:' . $mime . ';base64,' . base64_encode($file_data);
+                }
+            }
+        }
+
         $attached_file = get_attached_file($thumbnail_id);
         if ($attached_file && file_exists($attached_file) && is_readable($attached_file)) {
             $file_data = file_get_contents($attached_file);
             if ($file_data !== false) {
-                // Get correct MIME type
                 $file_info = getimagesize($attached_file);
                 if ($file_info && !empty($file_info['mime'])) {
                     return 'data:' . $file_info['mime'] . ';base64,' . base64_encode($file_data);
                 }
-                // Fallback MIME type
                 $ext = strtolower(pathinfo($attached_file, PATHINFO_EXTENSION));
                 $mime_types = array(
                     'jpg' => 'image/jpeg',
